@@ -8,7 +8,7 @@
 Servo leftServo;
 Servo rightServo;
 
-int speed = 5; //sets the speed of the robot (both servos) a percentage between 0 and 100
+int speed = 3; //sets the speed of the robot (both servos) a percentage between 0 and 100
 
 // END OF ARDUINO CONTROLLED SERVO ROBOT (SERB) PREAMBLE
 //---------------------------------------------------------------------------------
@@ -36,6 +36,8 @@ void serbSetup() {
 void goForward() {
   leftServo.write(90 + speed);
   rightServo.write(90 - speed);
+Serial.println("xxxxxxxx") ;
+Serial.flush() ;
 }
 
 /*
@@ -95,60 +97,52 @@ int j = 10;
 
 void setup() {
   // put your setup code here, to run once:
+  Serial.begin(9600);
   serbSetup();
 
 }
 
-
 void loop() {
-  // put your main code here, to run repeatedly:
 
- 
-//goForward();
-//delay(2000);
-//goRight();
-//delay(2000);
-//
-//goStop();
-//delay(4000);
-//goLeft();
+  int left, middle, right;
 
+  left = digitalRead(8);   
+  middle = digitalRead(4); 
+  right = digitalRead(2); 
+  
+   if((left == 0) && middle && right) 
+   {
+    goLeft(); 
+    delay(2);                                    
+   }    
+  else if(left && middle && (right == 0))
+   {
+    goRight();
+    delay(2);
+   }
+   else if(left && (middle == 0) && right)
+   {
+      goForward(); 
+      delay(2);
+   }
+   else if((left == 0) && (middle == 0) && (right  == 0))
+   {
+      goStop(); 
+      delay(2);
+   }
+  else if((left == 1) && (middle == 1) && (right  == 1))
+   {
+      goStop(); 
+      delay(2);
+   }
+  else
+  {
+    goForward(); 
+    delay(2);
+  } 
 
+//delay(200) ;
 
-
-//  int j2 = j;
-//  if (i < j2 )
-//  {
-//    int k = j;
-//    goForward();
-//  }
-//  else
-//  {
-//    goBackward();
-//  }
-//  j--;
-
-
-
-  /*
-    goForward();
-    delay(100);
-    goStop();
-
-
-    for(int i = 0; i <= 10; i++){
-    if( i % 2 == 0)
-      {
-      goForward();
-      goStop();
-      }
-      if( i%2 == 1)
-      {
-      goBackward();
-      goStop();
-      }
-    }
-  */
 }
 
 
