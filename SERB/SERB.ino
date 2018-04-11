@@ -104,6 +104,11 @@ void setup() {
 
 void loop() {
 
+  goRight() ;
+  delay(2050) ;
+  goStop() ;
+  delay(200) ;
+/*
   int left, middle, right;
 
   left = digitalRead(8);   
@@ -140,7 +145,7 @@ void loop() {
     goForward(); 
     delay(2);
   } 
-
+*/
 //delay(200) ;
 
 }
