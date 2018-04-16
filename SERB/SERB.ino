@@ -115,32 +115,37 @@ void loop() {
   left = digitalRead(8);   
   middle = digitalRead(4); 
   right = digitalRead(2); 
-  
+
+   //90 degree testing code
    //if((left == 0) && middle && right) 
    //{
    // goLeft(); 
    // delay(2);                                    
    //}   
-   if(left && (middle == 0) && (right == 0)) 
-   {
-    goLeft(); 
-    delay(2);                                    
-   }  
+
+   //Follow white line?
    //else if(left && middle && (right == 0))
    //{
    // goRight();
    // delay(2);
    //}
-   else if((left == 0) && (middle == 0) && right)
-   {
-    goRight();
-    delay(2);
-   }
    //else if(left && (middle == 0) && right)
    //{
    //   goForward(); 
    //   delay(2);
    //}
+
+   //FOLLOW LINE **********************************************
+   if(left && (middle == 0) && (right == 0)) 
+   {
+    goLeft(); 
+    delay(2);                                    
+   }  
+   else if((left == 0) && (middle == 0) && right)
+   {
+    goRight();
+    delay(2);
+   }
    else if((left == 0) && middle && (right == 0))
    {
       goForward(); 
@@ -161,7 +166,7 @@ void loop() {
     goForward(); 
     delay(2);
   } 
-
+  //FOLLOW LINE END **********************************************
 //delay(200) ;
 
 }
