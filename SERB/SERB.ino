@@ -110,11 +110,15 @@ void loop() {
   //delay(200) ;
   //goStop() ;
 
-  int left, middle, right;
-
+  int left, middle, right; //IR Sesor Variables
+  int command, readySig;
+  
   left = digitalRead(8);   
   middle = digitalRead(4); 
   right = digitalRead(2); 
+  
+  command = 0;            //Determines what movements to do (from python code)
+  readySig = 1;           //Signals to python that it can recieve next task
 
    //90 degree testing code
    //if((left == 0) && middle && right) 
@@ -135,7 +139,17 @@ void loop() {
    //   delay(2);
    //}
 
-   //FOLLOW LINE **********************************************
+if(command == 0) //WAIT FOR COMMAND**********************************************
+{
+    goStop();
+    readySig = 1;
+    //recieve python command
+    //command = ?;
+}
+else if(command == 1) //FOLLOW LINE **********************************************
+{
+   readySig = 0;
+   
    if(left && (middle == 0) && (right == 0)) 
    {
     goLeft(); 
@@ -153,22 +167,69 @@ void loop() {
    }
    else if((left == 0) && (middle == 0) && (right  == 0))
    {
-      goForward; 
+      goForward(); 
       delay(2);
    }
    else if((left == 1) && (middle == 1) && (right  == 1))
    {
       goStop(); 
       delay(2);
+      command = 0;
    }
   else
   {
     goForward(); 
     delay(2);
   } 
-  //FOLLOW LINE END **********************************************
-//delay(200) ;
-
+} 
+else if(command == 2) //REVERSE FOLLOW LINE****************************************
+{
+  if(left && (middle == 0) && (right == 0)) 
+   {
+    goLeft(); 
+    delay(2);                                    
+   }  
+   else if((left == 0) && (middle == 0) && right)
+   {
+    goRight();
+    delay(2);
+   }
+   else if((left == 0) && middle && (right == 0))
+   {
+      goBackward(); 
+      delay(2);
+   }
+   else if((left == 0) && (middle == 0) && (right  == 0))
+   {
+      goBackward(); 
+      delay(2);
+   }
+   else if((left == 1) && (middle == 1) && (right  == 1))
+   {
+      goStop(); 
+      delay(2);
+      command = 0;
+   }
+  else
+  {
+    goBackward(); 
+    delay(2);
+  } 
 }
+else if(command == 3) //90 RIGHT?
+{
+  readySig = 0;
+}
+else if(command == 4) //90 LEFT?
+{
+  readySig = 0;
+}
+else  //Fail safe
+{
+  goStop();
+  command = 0;
+}
+
+} //End file
 
 
