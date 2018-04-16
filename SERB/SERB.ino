@@ -56,12 +56,24 @@ void goRight() {
   rightServo.write(90 + speed);
 }
 
+  //Robot right in reverse
+void goRevRight() {
+  leftServo.write(87 + speed);
+  rightServo.write(90 + speed);
+}
+
 /*
    sends the robot left
 */
 void goLeft() {
   leftServo.write(90 - speed);
   rightServo.write(90 - speed);
+}
+
+  //Robot left in reverse 
+void goRevLeft() {
+  leftServo.write(90 - speed);
+  rightServo.write(87 - speed);
 }
 
 /*
@@ -186,12 +198,12 @@ else if(command == 2) //REVERSE FOLLOW LINE*************************************
 {
   if(left && (middle == 0) && (right == 0)) 
    {
-    goLeft(); 
+    goRevRight(); 
     delay(2);                                    
    }  
    else if((left == 0) && (middle == 0) && right)
    {
-    goRight();
+    goRevLeft();
     delay(2);
    }
    else if((left == 0) && middle && (right == 0))
