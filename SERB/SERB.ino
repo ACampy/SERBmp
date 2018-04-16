@@ -104,38 +104,54 @@ void setup() {
 
 void loop() {
 
-  goRight() ;
-  delay(2050) ;
-  goStop() ;
-  delay(200) ;
-/*
+  //goRight() ;
+  //delay(2050) ;
+  //goStop() ;
+  //delay(200) ;
+  //goStop() ;
+
   int left, middle, right;
 
   left = digitalRead(8);   
   middle = digitalRead(4); 
   right = digitalRead(2); 
   
-   if((left == 0) && middle && right) 
+   //if((left == 0) && middle && right) 
+   //{
+   // goLeft(); 
+   // delay(2);                                    
+   //}   
+   if(left && (middle == 0) && (right == 0)) 
    {
     goLeft(); 
     delay(2);                                    
-   }    
-  else if(left && middle && (right == 0))
+   }  
+   //else if(left && middle && (right == 0))
+   //{
+   // goRight();
+   // delay(2);
+   //}
+   else if((left == 0) && (middle == 0) && right)
    {
     goRight();
     delay(2);
    }
-   else if(left && (middle == 0) && right)
+   //else if(left && (middle == 0) && right)
+   //{
+   //   goForward(); 
+   //   delay(2);
+   //}
+   else if((left == 0) && middle && (right == 0))
    {
       goForward(); 
       delay(2);
    }
    else if((left == 0) && (middle == 0) && (right  == 0))
    {
-      goStop(); 
+      goForward; 
       delay(2);
    }
-  else if((left == 1) && (middle == 1) && (right  == 1))
+   else if((left == 1) && (middle == 1) && (right  == 1))
    {
       goStop(); 
       delay(2);
@@ -145,7 +161,7 @@ void loop() {
     goForward(); 
     delay(2);
   } 
-*/
+
 //delay(200) ;
 
 }
