@@ -106,31 +106,38 @@ void setSpeed(int newSpeed) {
 //Global Variables
 int i = 0;
 int j = 10;
+int left, middle, right; //IR Sesor Variables
+int command, readySig;
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
   serbSetup();
 
+  
+
+  command = 2;            //Determines what movements to do (from python code)
+  readySig = 1;           //Signals to python that it can recieve next task
+
+  
+  left = digitalRead(8);   
+  middle = digitalRead(4); 
+  right = digitalRead(2); 
+
 }
 
 void loop() {
 
+  Serial.println(left);
+  Serial.println(middle);
+  Serial.println(right);
+  Serial.println(command);
+  Serial.println(readySig);
   //goRight() ;
   //delay(2050) ;
   //goStop() ;
   //delay(200) ;
   //goStop() ;
-
-  int left, middle, right; //IR Sesor Variables
-  int command, readySig;
-  
-  left = digitalRead(8);   
-  middle = digitalRead(4); 
-  right = digitalRead(2); 
-  
-  command = 0;            //Determines what movements to do (from python code)
-  readySig = 1;           //Signals to python that it can recieve next task
 
    //90 degree testing code
    //if((left == 0) && middle && right) 
