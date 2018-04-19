@@ -120,19 +120,22 @@ void setup() {
   readySig = 1;           //Signals to python that it can recieve next task
 
   
-  left = digitalRead(8);   
-  middle = digitalRead(4); 
-  right = digitalRead(2); 
+   
 
 }
 
 void loop() {
+  
+  //command = 2; 
 
-  Serial.println(left);
-  Serial.println(middle);
-  Serial.println(right);
-  Serial.println(command);
-  Serial.println(readySig);
+  left = digitalRead(8);   
+  middle = digitalRead(4); 
+  right = digitalRead(2);
+  //Serial.println(left);
+  //Serial.println(middle);
+  //Serial.println(right);
+  //Serial.println(command);
+//  Serial.println(readySig);
   //goRight() ;
   //delay(2050) ;
   //goStop() ;
@@ -193,7 +196,7 @@ else if(command == 1) //FOLLOW LINE ********************************************
    {
       goStop(); 
       delay(2);
-      command = 0;
+      //command = 0;
    }
   else
   {
@@ -227,7 +230,7 @@ else if(command == 2) //REVERSE FOLLOW LINE*************************************
    {
       goStop(); 
       delay(2);
-      command = 0;
+      //command = 0;
    }
   else
   {
@@ -246,7 +249,7 @@ else if(command == 4) //90 LEFT?
 else  //Fail safe
 {
   goStop();
-  command = 0;
+  //command = 0;
 }
 
 } //End file
