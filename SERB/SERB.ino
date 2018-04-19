@@ -208,6 +208,7 @@ else if(command == 1) //FOLLOW LINE ********************************************
 } 
 else if(command == 2) //REVERSE FOLLOW LINE****************************************
 {
+  readySig = 0;
   if(left && (middle == 0) && (right == 0)) 
    {
     goRevRight(); 
