@@ -149,7 +149,7 @@ for x in range(0, 1):
   print("\n\n")
 
   #for for printing queue
-  for fuck in range (0, q2.size()):
+  for stuff in range (0, q2.size()):
     print(q2.dequeue())
 
 #Returns "None" when in same spot
