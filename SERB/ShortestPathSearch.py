@@ -6,15 +6,7 @@
 
 from random import *
 
-graph = {'A': set(['B', 'E', 'D']), 
-         'B': set(['A', 'F', 'C']),
-         'C': set(['B', 'G','D']), 
-         'D': set(['C', 'H', 'A']), 
-         'E': set(['A']), 
-         'F': set(['B']), 
-         'G': set(['C']), 
-         'H': set(['D'])}
-
+#Queue class that is for storing locations robot is going to.
 class Queue:
     def __init__(self):
         self.items = []
@@ -30,6 +22,17 @@ class Queue:
 
     def size(self):
         return len(self.items)
+
+#------------------------------------------------------------
+# Graph with path that the serb will be following
+graph = {'A': set(['B', 'E', 'D']), 
+         'B': set(['A', 'F', 'C']),
+         'C': set(['B', 'G','D']), 
+         'D': set(['C', 'H', 'A']), 
+         'E': set(['A']), 
+         'F': set(['B']), 
+         'G': set(['C']), 
+         'H': set(['D'])}
 
 #Selects random node from graph list  
 def random_node_One():
@@ -56,7 +59,11 @@ def shortest_path(graph, start, goal):
 
 #Converts Path into Motion Queue THEPROJECT.PY
 def motionPlan(path):
+
   q1 = Queue()
+
+  #Takes the current node and next node and stores the
+  #commands the arduino has to complete to get to the next node.
   for node in range(0,len(path)-1):
     # print (node)
     cur = path[node]
@@ -64,7 +71,7 @@ def motionPlan(path):
     # print (cur, nex)
 
     #Inner to Outer
-    if ((cur == 'E' and nex == 'A') or 
+    if ((cur == 'E' and nex == 'A') or
       (cur == 'F' and nex == 'B') or 
       (cur == 'G' and nex == 'C') or 
       (cur == 'H' and nex == 'D')):
@@ -109,11 +116,13 @@ def motionPlan(path):
     #end For loop
   return q1
 
+#------------------------------------------------------------
 
+#Node the serb is starting at
 starting_node = 'E'
 ending_node = random_node_One()
 
-#Picks nodes 1 times
+#Picks ending node one time
 for x in range(0, 1):
   print("Starting Node")
   print(starting_node)
@@ -125,7 +134,6 @@ for x in range(0, 1):
   path = shortest_path(graph, starting_node, ending_node)
   while(True):
     #HERE GIVE INFORMATION TO ROBOT, PARSE THROUGH NODES
-    # print (len(path))
     if not path:
       ending_node = random_node_One()
       path = shortest_path(graph, starting_node, ending_node)
