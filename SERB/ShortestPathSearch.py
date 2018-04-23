@@ -1,15 +1,21 @@
-# Code for Breadth-First search and shortest path finder used from: 
+# ShortestPathSearch.py determines the shortest path of a given graph using Breadth-first search and determines
+# the motion plan for our Arduino robot, which it stores in a queue. The resource used for creating
+# the breadth-first search and queue class are listed below.
+#
+# Code for Breadth-First search and shortest path finder used from:
 # http://eddmann.com/posts/depth-first-search-and-breadth-first-search-in-python/
-
+#
 # Code for Queue Class from:
 # http://interactivepython.org/runestone/static/pythonds/BasicDS/ImplementingaQueueinPython.html
 
 from random import *
 from time import sleep
 import serial
+#---------------------PySerial Enable------------------------
 
-#Uncomment to enable SERIAL
 #ser = serial.Serial('/dev/ttyACM0', 9600) # Establish the connection on a specific port
+
+#---------------------Queue class----------------------------
 
 #Queue class that is for storing locations robot is going to.
 class Queue:
@@ -28,8 +34,9 @@ class Queue:
     def size(self):
         return len(self.items)
 
-#------------------------------------------------------------
-# Graph with path that the serb will be following
+#----------------Graph and Motion Queue Setup----------------
+
+#Graph with path that the serb will be following
 graph = {'A': set(['B', 'E', 'D']), 
          'B': set(['A', 'F', 'C']),
          'C': set(['B', 'G','D']), 
@@ -121,7 +128,7 @@ def motionPlan(path):
     #end For loop
   return q1
 
-#------------------------------------------------------------
+#------------------------Main--------------------------------
 
 #Node the serb is starting at
 starting_node = 'E'
@@ -133,7 +140,6 @@ for x in range(0, 1):
   print(starting_node)
   print("Ending Node")
   print(ending_node)
-  
 
   #Valid path check (Start /= End)
   path = shortest_path(graph, starting_node, ending_node)
@@ -161,6 +167,7 @@ for x in range(0, 1):
   for index in range (0, q2.size()):
     print(q2.dequeue())
 
+#-----------------------PySerial-----------------------------
 #UNCOMMENT for PySerial
 #
 # print("dequeue")
@@ -181,4 +188,3 @@ for x in range(0, 1):
 # ser.write(q2.dequeue())
 #ser.write()
 #ser.readLine()
-
