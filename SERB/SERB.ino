@@ -36,7 +36,7 @@ void serbSetup() {
 void goForward() {
   leftServo.write(90 + speed);
   rightServo.write(90 - speed);
-Serial.println("xxxxxxxx") ;
+//Serial.println("xxxxxxxx") ;
 Serial.flush() ;
 }
 
@@ -108,7 +108,7 @@ int i = 0;
 int j = 10;
 int left, middle, right; //IR Sesor Variables
 int command, readySig;
-
+int count = 0;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
@@ -116,63 +116,42 @@ void setup() {
 
   command = 0;            //Determines what movements to do (from python code)
   readySig = 1;           //Signals to python that it can recieve next task
-
+  
 }
 
-void loop() {
-  
-  //command = 2; 
-
+void loop() { 
   left = digitalRead(8);   
   middle = digitalRead(4); 
   right = digitalRead(2);
 
-if (Serial.available()) { // only send data back if data has been sent
-    command = Serial.read(); // read the incoming data
-    Serial.println(command);
-}
-  
-  
-  //Serial.println(left);
-  //Serial.println(middle);
-  //Serial.println(right);
-  //Serial.println(command);
-  //Serial.println(readySig);
-  //goRight() ;
-  //delay(2050) ;
-  //goStop() ;
-  //delay(200) ;
-  //goStop() ;
+//Recieve Command
+int q []= {2, 0, 3, 1, 4, 0, 3, 1, 4, 0, 3, 1, 0}; //movement commands
 
-   //90 degree testing code
-   //if((left == 0) && middle && right) 
-   //{
-   // goLeft(); 
-   // delay(2);                                    
-   //}   
-
-   //Follow white line?
-   //else if(left && middle && (right == 0))
-   //{
-   // goRight();
-   // delay(2);
-   //}
-   //else if(left && (middle == 0) && right)
-   //{
-   //   goForward(); 
-   //   delay(2);
-   //}
+  if(readySig == 1)
+  { 
+    command = q[count];
+  }
+//Serial.println(command);
+//if (Serial.available()) { // only send data back if data has been sent
+//    Serial.println("I'm ready");
+//    //Serial.println(command);
+//    command = Serial.read(); // read the incoming data
+//    //Serial.println(command);
+//}
 
 if(command == 0) //WAIT FOR COMMAND**********************************************
 {
     goStop();
     readySig = 1;
+    count++;
+    Serial.println("Stop");
     //recieve python command
     //command = ?;
 }
 else if(command == 1) //FOLLOW LINE **********************************************
 {
    readySig = 0;
+   Serial.println("forward");
    
    if(left && (middle == 0) && (right == 0)) 
    {
@@ -198,7 +177,7 @@ else if(command == 1) //FOLLOW LINE ********************************************
    {
       goStop(); 
       delay(2);
-      //command = 0;
+      command = 0;
    }
   else
   {
@@ -209,6 +188,8 @@ else if(command == 1) //FOLLOW LINE ********************************************
 else if(command == 2) //REVERSE FOLLOW LINE****************************************
 {
   readySig = 0;
+  Serial.println("back");
+  
   if(left && (middle == 0) && (right == 0)) 
    {
     goRevRight(); 
@@ -233,7 +214,7 @@ else if(command == 2) //REVERSE FOLLOW LINE*************************************
    {
       goStop(); 
       delay(2);
-      //command = 0;
+      command = 0;
    }
   else
   {
@@ -244,16 +225,24 @@ else if(command == 2) //REVERSE FOLLOW LINE*************************************
 else if(command == 3) //90 LEFT?
 {
   readySig = 0;
+  Serial.println("Left");
+  command = 0;
+
 }
 else if(command == 4) //90 RIGHT?
 {
   readySig = 0;
+  Serial.println("Right");
+  command = 0;
 }
 else  //Fail safe
 {
   goStop();
-  //command = 0;
+  Serial.println("Ya goofed");
+  command = 0;
 }
+
+
 
 } //End file
 

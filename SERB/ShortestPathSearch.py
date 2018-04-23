@@ -5,6 +5,10 @@
 # http://interactivepython.org/runestone/static/pythonds/BasicDS/ImplementingaQueueinPython.html
 
 from random import *
+from time import sleep
+import serial
+
+ser = serial.Serial('/dev/ttyACM0', 9600) # Establish the connection on a specific port
 
 #Queue class that is for storing locations robot is going to.
 class Queue:
@@ -156,19 +160,26 @@ for x in range(0, 1):
   motionPlan(path)
   print("\n\n")
 
-  #for for printing queue
+  #  printing queue
   for stuff in range (0, q2.size()):
     print(q2.dequeue())
 
-#Returns "None" when in same spot
-#Finds shortest path
-#path = shortest_path(graph, 'G', 'F')
+# print("please owrk")
+# # ser.write(q2.dequeue())
+# # while (True):
+# #   print (ser.readline())
 
 
+# while( not q2.isEmpty() ):
+#   # print ("itworked")
+  
+#   if (ser.readline() >= 0):
+#     print ("whyyy")
+#     ser.write(q2.dequeue())
+#     print (ser.readline())
 
-#prints randomly selected node
-#print(random_node_One())
-
-#prints path
-#print(path)
+# print ("end queue")
+# ser.write(q2.dequeue())
+#ser.write()
+#ser.readLine()
 
