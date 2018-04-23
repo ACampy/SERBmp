@@ -18,6 +18,7 @@ int speed = 3; //sets the speed of the robot (both servos) a percentage between 
 /*
    sets up your arduino to address your SERB using the included routines
 */
+
 void serbSetup() {
   setSpeed(speed);
   pinMode(LEFTSERVOPIN, OUTPUT);     //sets the left servo signal pin to output
@@ -72,8 +73,8 @@ void goLeft() {
 
   //Robot left in reverse 
 void goRevLeft() {
-  leftServo.write(90 + speed);
-  rightServo.write(87 + speed);
+  leftServo.write(90 - speed);
+  rightServo.write(87 - speed);
 }
 
 /*
@@ -102,152 +103,37 @@ void setSpeed(int newSpeed) {
   }
   speed = newSpeed * 0.9;                   //scales the speed to be between 0 and 90
 }
-
 //Global Variables
 int i = 0;
 int j = 10;
 int left, middle, right; //IR Sesor Variables
 int command, readySig;
 int count = 0;
+
+
+
 void setup() {
   // put your setup code here, to run once:
+// put your setup code here, to run once:
   Serial.begin(9600);
   serbSetup();
 
-  command = 0;            //Determines what movements to do (from python code)
-  readySig = 1;           //Signals to python that it can recieve next task
-  
+
 }
 
-void loop() { 
+void loop() {
+  // put your main code here, to run repeatedly:
   left = digitalRead(8);   
   middle = digitalRead(4); 
   right = digitalRead(2);
 
-//Recieve Command
-int q []= {2, 0, 3, 1, 4, 0, 3, 1, 4, 0 }; //movement commands E -> C
-//int q [] = {2, 0, 4, 1, 3, 0, 1, 0}; //E -> H
-  if(readySig == 1)
-  { 
-    command = q[count];
-  }
-//Serial.println(command);
-//if (Serial.available()) { // only send data back if data has been sent
-//    Serial.println("I'm ready");
-//    //Serial.println(command);
-//    command = Serial.read(); // read the incoming data
-//    //Serial.println(command);
-//}
 
-if(command == 0) //WAIT FOR COMMAND**********************************************
-{
-    goStop();
-    readySig = 1;
-    count++;
-    Serial.println("Stop");
-    //recieve python command
-    //command = ?;
-}
-else if(command == 1) //FOLLOW LINE **********************************************
-{
-   readySig = 0;
-   Serial.println("forward");
-   
-   if(left && (middle == 0) && (right == 0)) 
-   {
-    goLeft(); 
-    delay(2);                                    
-   }  
-   else if((left == 0) && (middle == 0) && right)
-   {
-    goRight();
-    delay(2);
-   }
-   else if((left == 0) && middle && (right == 0))
-   {
-      goForward(); 
-      delay(4);
-   }
-   else if((left == 0) && (middle == 0) && (right  == 0))
-   {
-      goForward(); 
-      delay(2);
-   }
-   else if((left == 1) && (middle == 1) && (right  == 1))
-   {
-      goStop(); 
-      delay(2);
-      command = 0;
-   }
-  else
-  {
-    goForward(); 
-    delay(2);
-  } 
-} 
-else if(command == 2) //REVERSE FOLLOW LINE****************************************
-{
-  readySig = 0;
-  Serial.println("back");
-  
-  if(left && (middle == 0) && (right == 0)) 
-   {
-    goRevRight(); 
-    delay(2);                                    
-   }  
-   else if((left == 0) && (middle == 0) && right)
-   {
-    goRevLeft();
-    delay(2);
-   }
-   else if((left == 0) && middle && (right == 0))
-   {
-      goBackward(); 
-      delay(2);
-   }
-   else if((left == 0) && (middle == 0) && (right  == 0))
-   {
-      goBackward(); 
-      delay(2);
-   }
-   else if((left == 1) && (middle == 1) && (right  == 1))
-   {
-      goStop(); 
-      delay(2);
-      command = 0;
-   }
-  else
-  {
-    goBackward(); 
-    delay(2);
-  } 
-}
-else if(command == 3) //90 LEFT?
-{
-  readySig = 0;
-  Serial.println("Left");
+if( count == 0){
   goLeft();
   delay (1900);
-  command = 0;
-
+  count = 1;
 }
-else if(command == 4) //90 RIGHT?
-{
-  readySig = 0;
-  Serial.println("Right");
-  goRight();
-  delay (1900);
-  command = 0;
-}
-else  //Fail safe
-{
+else
   goStop();
-  Serial.println("Ya goofed");
-  command = 0;
+  
 }
-
-
-
-} //End file
-
-
