@@ -8,7 +8,8 @@ from random import *
 from time import sleep
 import serial
 
-ser = serial.Serial('/dev/ttyACM0', 9600) # Establish the connection on a specific port
+#Uncomment to enable SERIAL
+#ser = serial.Serial('/dev/ttyACM0', 9600) # Establish the connection on a specific port
 
 #Queue class that is for storing locations robot is going to.
 class Queue:
