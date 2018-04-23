@@ -150,29 +150,27 @@ for x in range(0, 1):
     else:
       break
 
-  #create Queue for Arduino
+  #Create Queue for Arduino
   q2 = Queue()
-  q2 = motionPlan(path)   
+  q2 = motionPlan(path)
 
-  # print(path)
-  starting_node = ending_node
-  ending_node = random_node_One()
-  
-  motionPlan(path)
-  print("\n\n")
+  #Queue header
+  print("\n\nQueue")
 
-  #  printing queue
-  for stuff in range (0, q2.size()):
+  #Printing Queue
+  for index in range (0, q2.size()):
     print(q2.dequeue())
 
-# print("please owrk")
+#UNCOMMENT for PySerial
+#
+# print("dequeue")
 # # ser.write(q2.dequeue())
 # # while (True):
 # #   print (ser.readline())
 
 
 # while( not q2.isEmpty() ):
-#   # print ("itworked")
+#   # print ("it worked")
   
 #   if (ser.readline() >= 0):
 #     print ("whyyy")
