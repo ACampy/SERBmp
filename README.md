@@ -1,8 +1,9 @@
 SERBmp
-Mobile Robotics project
+# Mobile Robotics project
 
-SERB directory contains project files
+## SERB directory contains project files
+  SERBmp.ino is Arduino code for SERB motion control 
+  
 
-
-Reference files in Reference directory
+## Reference files in Reference directory
 
