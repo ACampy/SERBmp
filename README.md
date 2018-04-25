@@ -8,6 +8,7 @@ In python we generate a shortest path from one node into another in a graph and 
 The Arduino reads the dequeued commands over the USB and performs the corresponding actions.
 
 ![Graph](ACampy/SERBmp/blob/master/Reference/pastedImage0.png)
+![Graph](https://github.com/ACampy/SERBmp/blob/master/Reference/pastedImage0.png)
 
 ### Problems
 Currently we are having difficulty with PySerial communicating with the the arduino. 
