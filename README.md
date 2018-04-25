@@ -7,7 +7,7 @@ It contains code written for Python 2.7 and Arduino.
 In python we generate a shortest path from one node into another in a graph and convert those into commands for the SERB robot run by the arduino. These commands are store in a queue which get sent using PySerial to the Arduino.
 The Arduino reads the dequeued commands over the USB and performs the corresponding actions.
 
-![Graph](ACampy/SERBmp/Reference/pastedImage0.png? raw=true "Graph")
+![title](ACampy/SERBmp/Reference/pastedImage0.png? raw=true "Graph")
 
 ### Problems
 Currently we are having difficulty with PySerial communicating with the the arduino. 
